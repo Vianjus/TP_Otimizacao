@@ -1,0 +1,60 @@
+# ============================================================================
+# Dados 2: Região Suburbana Média - Quarta-feira
+# ============================================================================
+
+# Sets definition - More collection points
+set I := 1 2 3 4 5 6 7 8;
+set B := 1 2 3;
+set V := 1 2 3 4;
+set T := 1 2 3 4 5 6 7;
+
+# Parameters - Different vehicle capacity
+param Q := 450;           # Vehicle capacity 450 m3 (larger vehicles)
+param TU := 20;           # Unloading time 20 minutes
+param CCV := 1.8;         # Cost 1.8 US$/min (cheaper operations)
+param TL := 540;          # Working day 540 minutes (9 hours)
+param BigM := 1500;       # Big M value
+
+# Travel time matrix C[i,j] (in minutes, different geography)
+param C :
+        0   1   2   3   4   5   6   7   8 :=
+    0   0  12  18  14  22  16  20  25  19
+    1  12   0  10  12  18  14  16  21  17
+    2  18  10   0  14  16  12  18  23  15
+    3  14  12  14   0  10   8  12  17  11
+    4  22  18  16  10   0  12  14  19  13
+    5  16  14  12   8  12   0  10  15   9
+    6  20  16  18  12  14  10   0  13  11
+    7  25  21  23  17  19  15  13   0  12
+    8  19  17  15  11  13   9  11  12   0;
+
+# Service times for bin combinations (in minutes)
+param Sb :=
+    1  6
+    2  9
+    3 12;
+
+# Capacities of bin combinations (in m3)
+param CAPb :=
+    1  75
+    2 120
+    3 180;
+
+# Installation and maintenance costs (in US$)
+param CINb :=
+    1  600
+    2 1200
+    3 1800;
+
+# Daily waste generation at each collection point (in m3/day) - Higher demand
+param Wi :=
+    1  8
+    2 10
+    3  7
+    4  9
+    5  6
+    6  8
+    7  11
+    8  7;
+
+end;
