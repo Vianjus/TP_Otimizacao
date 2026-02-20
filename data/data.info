@@ -1,0 +1,23 @@
+📋 Arquivos Criados:
+
+1️⃣ trabalho_dados1.dat - Região Urbana Pequena
+  5 pontos de coleta
+  3 veículos, 3 tipos de lixeiras
+  Capacidade: 300 m³
+  Demanda baixa/média (4-8 m³/dia)
+  Custos menores (US$ 500-1500)
+
+2️⃣ trabalho_dados2.dat - Região Suburbana Média
+  8 pontos de coleta
+  4 veículos, 3 tipos de lixeiras
+  Capacidade: 450 m³ (maior)
+  Demanda média (6-11 m³/dia)
+  Custos intermediários (US$ 600-1800)
+  
+3️⃣ trabalho_dados3.dat - Região Industrial Grande
+  10 pontos de coleta
+  5 veículos, 4 tipos de lixeiras
+  Capacidade: 500 m³ (pesado)
+  Demanda alta (9-16 m³/dia)
+  Custos elevados (US$ 700-2800)
+  Maior complexidade geral
