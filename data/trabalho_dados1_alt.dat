@@ -1,19 +1,19 @@
 # ============================================================================
-# Dados para teste Rapido 3 Pontos/ Aprox 0,5 seg
+# Dados para teste Rapido 3 Pontos/ Aprox 3 seg
 # ============================================================================
 
 # Sets definition
 set I := 1 2 3;            # Apenas 3 pontos de coleta
-set B := 1 2;              # Apenas 2 tipos de contentores  
-set V := 1;                # Apenas 1 veiculo
-set T := 1 2 3;            # Apenas 3 dias no horizonte
-set Tprime := ;            # Sem dias de descanso (vazio)
+set B := 1 2 3;            # Apenas 3 tipos de contentores  
+set V := 1 2;              # Apenas 2 veiculo
+set T := 1 2 3 4 5;        # Apenas 5 dias no horizonte
+set Tprime := 1 2;         # 2 dias de descanso
 
 # Parameters
-param Q := 100;            # Capacidade do veiculo: 100 m3
-param TU := 5;             # Tempo de descarga: 5 minutos
-param CCV := 1.0;          # Custo: 1 US$/min
-param TL := 120;           # Jornada: 120 minutos (2 horas)
+param Q := 75;             # Capacidade do veiculo: 75 m3
+param TU := 10;             # Tempo de descarga: 10 minutos
+param CCV := 1.5;          # Custo: 1.5 US$/min
+param TL := 180;           # Jornada: 180 minutos (3 horas)
 
 # Travel time matrix C[i,j] (in minutes)
 # Rede simples: deposito (0) e 3 pontos em linha
@@ -27,17 +27,20 @@ param C :
 # Service times for bin combinations (in minutes)
 param Sb :=
     1  2     # Contentor pequeno: 2 min
-    2  4;    # Contentor grande: 4 min
+    2  3     # Contentor médio: 3 min
+    3  4;    # Contentor grande: 4 min
 
 # Capacities of bin combinations (in m3)
 param CAPb :=
     1  20    # Contentor pequeno: 20 m3
-    2  50;   # Contentor grande: 50 m3
+    2  40    # Contentor médio: 40 m3
+    3  50;   # Contentor grande: 50 m3
 
 # Installation and maintenance costs (in US$)
 param CINb :=
     1  50    # Contentor pequeno: 50 US$
-    2 100;   # Contentor grande: 100 US$
+    2  80    # Contentor médio: 80 US$
+    3 100;   # Contentor grande: 100 US$
 
 # Daily waste generation at each collection point (in m3/day)
 param Wi :=

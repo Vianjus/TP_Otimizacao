@@ -1,28 +1,31 @@
 # ============================================================================
-# Dados para teste Rápido
+# Dados para teste Rapido 5 pontos / Aprox 221 segs
 # ============================================================================
 
 # Sets definition
-set I := 1 2 3;           # Apenas 3 pontos de coleta
-set B := 1 2;             # Apenas 2 tipos de contentores  
+set I := 1 2 3 4 5;        # Apenas 3 pontos de coleta
+set B := 1 2;              # Apenas 2 tipos de contentores  
 set V := 1;                # Apenas 1 veículo
 set T := 1 2 3;            # Apenas 3 dias no horizonte
 set Tprime := ;            # Sem dias de descanso (vazio)
 
 # Parameters
-param Q := 100;            # Capacidade do veículo: 100 m3
+param Q := 100;            # Capacidade do veiculo: 100 m3
 param TU := 5;             # Tempo de descarga: 5 minutos
 param CCV := 1.0;          # Custo: 1 US$/min
 param TL := 120;           # Jornada: 120 minutos (2 horas)
 
 # Travel time matrix C[i,j] (in minutes)
-# Rede simples: depósito (0) e 3 pontos em linha
+# Rede simples: deposito (0) e 3 pontos em linha
 param C :
-        0   1   2   3 :=
-    0   0  10  20  30
-    1  10   0  10  20
-    2  20  10   0  10
-    3  30  20  10   0;
+        0   1   2   3   4   5:=
+    0   0  10  20  30  25   35
+    1  10   0  10  20  15   35
+    2  20  10   0  10  15   20
+    3  30  20  10   0  10   15
+    4  25  15  15  10   0   30
+    5  35  35  20  15  30    0;
+
 
 # Service times for bin combinations (in minutes)
 param Sb :=
@@ -43,6 +46,8 @@ param CINb :=
 param Wi :=
     1  5     # Ponto 1: 5 m3/dia
     2  8     # Ponto 2: 8 m3/dia
-    3  6;    # Ponto 3: 6 m3/dia
+    3  6     # Ponto 3: 6 m3/dia
+    4  9     # Ponto 2: 8 m3/dia
+    5  7;    # Ponto 3: 6 m3/dia
 
 end;
