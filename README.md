@@ -1,4 +1,4 @@
-## Modelo AMPL para Gusek do artigo seleccionado
+## Modelo AMPL para Gusek do [Artigo](./artigo_seminario.pdf)
 ---
 ### 1. Função Objetivo
 
@@ -9,7 +9,7 @@ $$
 \min \sum_{b \in B} (CIN_b \sum_{i \in I} n_{bi}) + CCV \sum_{t \in T} \sum_{v \in V} TT_{vt}
 $$
 
-**Seu modelo:**  
+**Meu modelo:**  
 ```mod
 minimize Total_Cost:
     sum{b in B, i in I} CINb[b] * nb[b,i]
@@ -31,7 +31,7 @@ minimize Total_Cost:
 - $n_{bi}$: se combinação $b$ de bins está no ponto $i$
 - $z_{ijbvt}$: linearização do tempo de serviço
 
-**Seu modelo:**
+**Meu modelo:**
 ```mod
 # Routing variables
 var x{i in I union {0}, j in I union {0}, v in V, t in T}, binary;
@@ -67,7 +67,7 @@ var z{i in I union {0}, j in I union {0}, b in B, v in V, t in T} >= 0;
 - (4a)-(4c) Linearização do tempo de serviço (Glover)
 - (6a)-(6b) Quebra de simetria
 
-**Seu modelo:**  
+**Meu modelo:**  
 Todas essas restrições estão implementadas, com nomes e fórmulas equivalentes.
 
 ---
@@ -78,7 +78,7 @@ Todas essas restrições estão implementadas, com nomes e fórmulas equivalente
 - Linearização do tempo de serviço com variáveis $z_{ijbvt}$ (Eq. 4a-4c)
 - Quebra de simetria (Eq. 6a-6b)
 
-**Seu modelo:**  
+**Meu modelo:**  
 Inclui as mesmas linearizações e cortes de simetria.
 
 ---
@@ -86,6 +86,6 @@ Inclui as mesmas linearizações e cortes de simetria.
 ### 5. Parâmetros
 
 **Artigo:**  
-Todos os parâmetros do artigo estão presentes no seu modelo (capacidades, custos, tempos, etc.).
+Todos os parâmetros do artigo estão presentes no meu modelo (capacidades, custos, tempos, etc.).
 
 ---
