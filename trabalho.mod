@@ -10,16 +10,16 @@ set V;                          # Veiculos
 set T;                          # Dias no horizonte de planejamento
 set Tprime within T;            # Dias de descanso (sem coleta)
 
-param Q;                        # Capacidade do veiculo (m3)
+param Q;                                      # Capacidade do veiculo (m3)
 param C{i in I union {0}, j in I union {0}};  # Tempo de viagem entre pontos (min)
-param Sb{b in B};                # Tempo de servico da combinacao b (min)
-param TU;                        # Tempo de descarga no deposito (min)
-param Wi{i in I};                 # Geracao diaria de residuos no ponto i (m3/dia)
-param CAPb{b in B};               # Capacidade da combinacao b de contentores (m3)
-param CINb{b in B};               # Custo de instalacao e manutencao da combinacao b (US$)
-param CCV;                        # Custo operacional dos veiculos (US$/min)
-param TL;                         # Duracao da jornada de trabalho (min)
-param BigM := max{b in B} CAPb[b]; # Big M para linearizacao do acumulo de residuos
+param Sb{b in B};                             # Tempo de servico da combinacao b (min)
+param TU;                                     # Tempo de descarga no deposito (min)
+param Wi{i in I};                             # Geracao diaria de residuos no ponto i (m3/dia)
+param CAPb{b in B};                           # Capacidade da combinacao b de contentores (m3)
+param CINb{b in B};                           # Custo de instalacao e manutencao da combinacao b (US$)
+param CCV;                                    # Custo operacional dos veiculos (US$/min)
+param TL;                                     # Duracao da jornada de trabalho (min)
+param BigM := max{b in B} CAPb[b];            # Big M para linearizacao do acumulo de residuos
 
 # ============================================================================
 # VARIAVEIS DE DECISAO
@@ -111,25 +111,9 @@ s.t. c2m{i in I, t in T}:
 s.t. waste_accum_interm{i in I, t in T: t > 1}:
     w[i,t] >= Wi[i] + w[i,t-1] - BigM * sum{j in I union {0}, v in V} x[i,j,v,t-1];
 
-# (3a-ub1) Limite superior do acumulo (sempre)
-s.t. waste_accum_interm_ub1{i in I, t in T: t > 1}:
-    w[i,t] <= Wi[i] + w[i,t-1];
-
-# (3a-ub2) Se houve coleta em t-1, residuo volta para a geracao diaria
-s.t. waste_accum_interm_ub{i in I, t in T: t > 1}:
-    w[i,t] <= Wi[i] + BigM * (1 - sum{j in I union {0}, v in V} x[i,j,v,t-1]);
-
 # (3b) Acumulo no primeiro dia (ciclico): limite inferior se nao coletou no ultimo dia
 s.t. waste_accum_first{i in I}:
     w[i,1] >= Wi[i] + w[i,card(T)] - BigM * sum{j in I union {0}, v in V} x[i,j,v,card(T)];
-
-# (3b-ub1) Limite superior do acumulo para o primeiro dia (ciclico)
-s.t. waste_accum_first_ub1{i in I}:
-    w[i,1] <= Wi[i] + w[i,card(T)];
-
-# (3b-ub2) Se houve coleta no ultimo dia, primeiro dia volta para geracao diaria
-s.t. waste_accum_first_ub{i in I}:
-    w[i,1] <= Wi[i] + BigM * (1 - sum{j in I union {0}, v in V} x[i,j,v,card(T)]);
 
 # (3c) Residuo minimo em cada dia
 s.t. waste_minimum{i in I, t in T}:
@@ -160,25 +144,6 @@ s.t. c6a{v in V, t in T diff Tprime: card(V) > 1 and v > 1}:
     sum{j in I} x[0,j,v,t] <= sum{j in I} x[0,j,v-1,t];
 
 # (6b) Veiculos iniciam com carga vazia
-s.t. c6b{v in V, t in T diff Tprime}:
-    sum{j in I} y[0,j,v,t] = 0;
-
-end;
-<= sum{j in I} x[0,j,v-1,t];
-
-# (6b) Vehicles start with empty load
-s.t. c6b{v in V, t in T diff Tprime}:
-    sum{j in I} y[0,j,v,t] = 0;
-
-end;<= sum{j in I} x[0,j,v-1,t];
-
-# (6b) Vehicles start with empty load
-s.t. c6b{v in V, t in T diff Tprime}:
-    sum{j in I} y[0,j,v,t] = 0;
-
-end;<= sum{j in I} x[0,j,v-1,t];
-
-# (6b) Vehicles start with empty load
 s.t. c6b{v in V, t in T diff Tprime}:
     sum{j in I} y[0,j,v,t] = 0;
 
